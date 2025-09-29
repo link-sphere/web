@@ -1,17 +1,17 @@
 "use client";
 
 import type React from "react";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { Loader2, ArrowLeft, RotateCcw } from "lucide-react";
 import { AuthService } from "@/lib/auth";
 import Link from "next/link";
+import { useCountdown } from "@/hooks/use-countdown";
 
 export function ForgotPasswordForm() {
   const router = useRouter();
@@ -22,6 +22,7 @@ export function ForgotPasswordForm() {
   const [success, setSuccess] = useState("");
   const [step, setStep] = useState<"email" | "verification" | "success">("email");
   const [tempPassword, setTempPassword] = useState("");
+  const { remaining, isActive, start, reset, stop, mm, ss } = useCountdown(180);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +42,29 @@ export function ForgotPasswordForm() {
       if (codeResult.success) {
         setStep("verification");
         setSuccess("인증번호가 이메일로 전송되었습니다.");
+        reset();
+        start();
+      } else {
+        setError(codeResult.message);
+      }
+    } catch {
+      setError("네트워크 오류가 발생했습니다");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resendCode = async () => {
+    if (!email) return;
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
+    try {
+      const codeResult = await AuthService.requestVerificationCode(email);
+      if (codeResult.success) {
+        setSuccess("인증번호를 재전송했습니다.");
+        reset();
+        start();
       } else {
         setError(codeResult.message);
       }
@@ -57,17 +81,20 @@ export function ForgotPasswordForm() {
     setError("");
 
     try {
-      // 인증번호 확인
+      if (remaining === 0) {
+        setError("인증번호가 만료되었습니다. 재전송 후 다시 시도하세요.");
+        return;
+      }
       const verifyResult = await AuthService.verifyCode(email, verificationCode);
 
       if (verifyResult.success) {
-        // 임시 비밀번호 발급
         const resetResult = await AuthService.requestPasswordReset(email);
 
         if (resetResult.success) {
           setTempPassword(resetResult.data?.tempPassword || "");
           setStep("success");
           setSuccess("임시 비밀번호가 발급되었습니다.");
+          stop();
 
           setTimeout(() => {
             router.replace("/");
@@ -147,9 +174,12 @@ export function ForgotPasswordForm() {
                   maxLength={6}
                   className="w-full"
                 />
-                <p className="text-sm text-muted-foreground">
-                  {email}로 전송된 인증번호를 입력하세요
-                </p>
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <p>{email}로 전송된 인증번호를 입력하세요</p>
+                  <p>
+                    남은 시간 {mm}:{ss}
+                  </p>
+                </div>
               </div>
 
               {error && (
@@ -164,20 +194,41 @@ export function ForgotPasswordForm() {
                 </Alert>
               )}
 
-              <div className="flex space-x-2">
+              <div className="flex gap-2">
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setStep("email")}
+                  onClick={() => {
+                    setStep("email");
+                    stop();
+                  }}
                   className="flex-1"
                 >
                   이전
                 </Button>
-                <Button type="submit" className="flex-1" disabled={isLoading}>
+                <Button type="submit" className="flex-1" disabled={isLoading || remaining === 0}>
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   확인
                 </Button>
               </div>
+
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={resendCode}
+                disabled={isLoading || (isActive && remaining > 0)}
+                className="w-full"
+              >
+                <RotateCcw className="mr-2 h-4 w-4" /> 재전송
+              </Button>
+
+              {remaining === 0 && (
+                <Alert>
+                  <AlertDescription>
+                    인증번호가 만료되었습니다. 재전송을 눌러 새 코드를 받아주세요.
+                  </AlertDescription>
+                </Alert>
+              )}
             </form>
           )}
 

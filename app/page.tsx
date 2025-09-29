@@ -27,7 +27,7 @@ export default function HomePage() {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold">new</span>
+            <span className="text-xl font-bold">Postio</span>
           </Link>
 
           <div className="flex items-center space-x-4">

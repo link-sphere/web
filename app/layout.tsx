@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "new",
+  title: "Postio",
   description: "새로운 프로젝트",
   generator: "dayelee",
 };
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="dark">
+    <html lang="ko">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
           <Suspense fallback={null}>{children}</Suspense>
         <Analytics />

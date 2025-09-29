@@ -17,7 +17,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ({ label, error, icon, helperText, className, ...props }, ref) => {
     return (
-      <div className="space-y-2">
+      <div className={cn("flex-1 min-w-0 space-y-2", className)}>
         {label && (
           <Label htmlFor={props.id} className="flex items-center gap-2">
             {icon}
@@ -26,14 +26,15 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         )}
         <Input
           ref={ref}
-          className={cn("w-full", error && "border-red-500 focus-visible:ring-red-500", className)}
+          className={cn("w-full", error && "border-red-500 focus-visible:ring-red-500")}
           {...props}
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
         {helperText && !error && <p className="text-sm text-muted-foreground">{helperText}</p>}
       </div>
-    )
-  },
-)
+    );
+  }
+);
+
 
 InputField.displayName = "InputField"
