@@ -1,7 +1,7 @@
 import type { AuthTokens, User, LoginResponse } from "./types";
 
 export class AuthService {
-  private static readonly BASE_URL = "/api/proxy";
+  private static readonly BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
 
   private static getStoredTokens(): AuthTokens | null {
     if (typeof window === "undefined") return null;
