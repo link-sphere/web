@@ -1,85 +1,90 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2, ArrowLeft } from "lucide-react"
-import { AuthService } from "@/lib/auth"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2, ArrowLeft } from "lucide-react";
+import { AuthService } from "@/lib/auth";
+import Link from "next/link";
 
 export function ForgotPasswordForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("")
-  const [verificationCode, setVerificationCode] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
-  const [step, setStep] = useState<"email" | "verification" | "success">("email")
-  const [tempPassword, setTempPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [step, setStep] = useState<"email" | "verification" | "success">("email");
+  const [tempPassword, setTempPassword] = useState("");
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
 
     try {
-      // 먼저 인증번호 요청
-      const codeResult = await AuthService.requestVerificationCode(email)
+      const avail = await AuthService.checkEmailAvailability(email);
 
-      if (codeResult.success) {
-        setStep("verification")
-        setSuccess("인증번호가 이메일로 전송되었습니다.")
-      } else {
-        setError(codeResult.message)
+      if (!avail.available) {
+        setError("해당 이메일로 가입된 계정이 없습니다. 회원가입을 진행해 주세요.");
+        return;
       }
-    } catch (err) {
-      setError("네트워크 오류가 발생했습니다")
+
+      const codeResult = await AuthService.requestVerificationCode(email);
+      if (codeResult.success) {
+        setStep("verification");
+        setSuccess("인증번호가 이메일로 전송되었습니다.");
+      } else {
+        setError(codeResult.message);
+      }
+    } catch {
+      setError("네트워크 오류가 발생했습니다");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleVerificationSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     try {
       // 인증번호 확인
-      const verifyResult = await AuthService.verifyCode(email, verificationCode)
+      const verifyResult = await AuthService.verifyCode(email, verificationCode);
 
       if (verifyResult.success) {
         // 임시 비밀번호 발급
-        const resetResult = await AuthService.requestPasswordReset(email)
+        const resetResult = await AuthService.requestPasswordReset(email);
 
         if (resetResult.success) {
-          setTempPassword(resetResult.data?.tempPassword || "")
-          setStep("success")
-          setSuccess("임시 비밀번호가 발급되었습니다.")
+          setTempPassword(resetResult.data?.tempPassword || "");
+          setStep("success");
+          setSuccess("임시 비밀번호가 발급되었습니다.");
 
           setTimeout(() => {
             router.replace("/");
             router.refresh();
           }, 1000);
-
         } else {
-          setError(resetResult.message)
+          setError(resetResult.message);
         }
       } else {
-        setError(verifyResult.message)
+        setError(verifyResult.message);
       }
     } catch (err) {
-      setError("네트워크 오류가 발생했습니다")
+      setError("네트워크 오류가 발생했습니다");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
@@ -142,7 +147,9 @@ export function ForgotPasswordForm() {
                   maxLength={6}
                   className="w-full"
                 />
-                <p className="text-sm text-muted-foreground">{email}로 전송된 인증번호를 입력하세요</p>
+                <p className="text-sm text-muted-foreground">
+                  {email}로 전송된 인증번호를 입력하세요
+                </p>
               </div>
 
               {error && (
@@ -158,7 +165,12 @@ export function ForgotPasswordForm() {
               )}
 
               <div className="flex space-x-2">
-                <Button type="button" variant="outline" onClick={() => setStep("email")} className="flex-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep("email")}
+                  className="flex-1"
+                >
                   이전
                 </Button>
                 <Button type="submit" className="flex-1" disabled={isLoading}>
@@ -179,7 +191,9 @@ export function ForgotPasswordForm() {
                 <div className="p-4 bg-muted rounded-lg">
                   <Label className="text-sm font-medium">임시 비밀번호</Label>
                   <p className="text-lg font-mono mt-1">{tempPassword}</p>
-                  <p className="text-sm text-muted-foreground mt-2">로그인 후 반드시 비밀번호를 변경하세요.</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    로그인 후 반드시 비밀번호를 변경하세요.
+                  </p>
                 </div>
               )}
 
@@ -191,5 +205,5 @@ export function ForgotPasswordForm() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

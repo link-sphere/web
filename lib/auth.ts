@@ -81,6 +81,7 @@ export class AuthService {
     }
   }
 
+  // 유저 로그인
   static async login(email: string, password: string) {
     try {
       const response = await fetch(`${this.BASE_URL}/auth/user/login`, {
@@ -132,6 +133,7 @@ export class AuthService {
     }
   }
 
+  // 유저 회원가입
   static async signup(email: string, password: string) {
     try {
       const response = await fetch(`${this.BASE_URL}/auth/user/sign-up`, {
@@ -148,7 +150,6 @@ export class AuthService {
       const result = await this.handleApiResponse(response);
 
       if (result.success) {
-        // After successful signup, automatically login
         return await this.login(email, password);
       }
 
@@ -161,6 +162,7 @@ export class AuthService {
     }
   }
 
+  // 유저 로그아웃
   static async logout() {
     try {
       const tokens = this.getStoredTokens();
@@ -194,19 +196,23 @@ export class AuthService {
     }
   }
 
+  // 임시 비밀번호 발급
   static async requestPasswordReset(email: string) {
     try {
       const response = await fetch(
-        `${this.BASE_URL}/auth/user/temporary-password?identifier=${encodeURIComponent(email)}`,
+        `${this.BASE_URL}/auth/user/temporary-password?email=${encodeURIComponent(email)}`,
         {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
         }
       );
 
-      return await this.handleApiResponse(response);
+      if (response.ok) {
+        return await this.handleApiResponse(response);
+      }
+
+      if (response.status === 404) {
+        return { success: false, message: "존재하지 않는 이메일 계정입니다." };
+      }
     } catch (error) {
       return {
         success: false,
@@ -215,6 +221,7 @@ export class AuthService {
     }
   }
 
+  // 비밀번호 변경
   static async changePassword(oldPassword: string, newPassword: string) {
     try {
       const tokens = this.getStoredTokens();
@@ -237,6 +244,13 @@ export class AuthService {
         }),
       });
 
+      if (response.status == 200) {
+        return { success: true, message: "비밀번호 변경 완료" };
+      }
+      if (response.status === 400) {
+        return { success: false, message: "비밀번호가 올바르지 않습니다." };
+      }
+
       return await this.handleApiResponse(response);
     } catch (error) {
       return {
@@ -246,6 +260,7 @@ export class AuthService {
     }
   }
 
+  // 유저 인증 번호 발급
   static async requestVerificationCode(email: string) {
     try {
       const response = await fetch(`${this.BASE_URL}/auth/user/code`, {
@@ -254,7 +269,7 @@ export class AuthService {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          identifier: email,
+          email: email,
         }),
       });
 
@@ -277,6 +292,7 @@ export class AuthService {
     }
   }
 
+  // 유저 인증 번호 인증
   static async verifyCode(email: string, code: string) {
     try {
       const response = await fetch(`${this.BASE_URL}/auth/user/certification`, {
@@ -285,8 +301,8 @@ export class AuthService {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          identifier: email,
-          code: Number.parseInt(code),
+          email: email,
+          code: code,
         }),
       });
 
@@ -299,6 +315,7 @@ export class AuthService {
     }
   }
 
+  // 아이디 중복 확인
   static async checkEmailAvailability(email: string) {
     try {
       const response = await fetch(
@@ -311,30 +328,19 @@ export class AuthService {
         }
       );
 
-      if (response.ok) {
-        return {
-          success: false,
-          message: "이미 사용중인 이메일입니다",
-        };
-      } else if (response.status === 404) {
-        return {
-          success: true,
-          message: "사용 가능한 이메일입니다",
-        };
-      } else {
-        return {
-          success: false,
-          message: "이메일 확인 중 오류가 발생했습니다",
-        };
+      if (response.status == 200) {
+        return { success: true, available: false, message: "사용 가능한 이메일입니다" };
       }
-    } catch (error) {
-      return {
-        success: false,
-        message: "네트워크 오류가 발생했습니다",
-      };
+      if (response.status === 409) {
+        return { success: false, available: true, message: "이미 사용중인 이메일입니다" };
+      }
+      return { success: false, available: false, message: `확인 실패 (status ${response.status})` };
+    } catch {
+      return { success: false, available: false, message: "네트워크 오류가 발생했습니다" };
     }
   }
 
+  // 토큰 재발급
   static async refreshTokens() {
     try {
       const tokens = this.getStoredTokens();
