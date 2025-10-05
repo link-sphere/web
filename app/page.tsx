@@ -6,6 +6,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { Loader2, Shield, Users, Zap } from "lucide-react";
 import Link from "next/link";
 import { UserMenu } from "@/components/layout/user-menu";
+import Image from "next/image";
 
 export default function HomePage() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -24,9 +25,7 @@ export default function HomePage() {
       <header className="border-b border-border">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Shield className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <Image src="/logo.png" alt="Postio" width={40} height={40} />
             <span className="text-xl font-bold">Postio</span>
           </Link>
 
