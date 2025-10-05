@@ -130,9 +130,52 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border mt-24">
+      <footer className="border-t border-border mt-24 text-sm">
         <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">
-          <p>&copy; 2025 new. All rights reserved.</p>
+          <div>
+            <p>© LeeLoad ALL RIGHTS RESERVED</p>
+            <p>
+              리로드(LeeLoad) | 대표자 : 이승렬 | 주소 : 주소 서울 특별시 동일로 225길 25 1109동
+              905호 | 호스팅사업자 : 리로드(LeeLoad) | 사업자등록번호 : 843-14-03075
+            </p>
+            <div>
+              <a
+                href="https://www.postio.site/agreement/privacy-policy"
+                data-index="(not set)"
+                data-section-name="footer"
+                data-section-index="201"
+                data-brand-id="(not set)"
+                data-button-id="-1"
+                data-button-name="개인정보처리방침"
+              >
+                개인정보처리방침
+              </a>
+              <span>·</span>
+              <a
+                href="https://www.postio.site/agreement/service"
+                data-index="(not set)"
+                data-section-name="footer"
+                data-section-index="201"
+                data-brand-id="(not set)"
+                data-button-id="-1"
+                data-button-name="이용약관"
+              >
+                이용약관
+              </a>
+              <span>·</span>
+              <a
+                href="https://www.postio.site/agreement/dispute-resolution"
+                data-index="(not set)"
+                data-section-name="footer"
+                data-section-index="201"
+                data-brand-id="(not set)"
+                data-button-id="-1"
+                data-button-name="분쟁해결기준"
+              >
+                분쟁해결기준
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
