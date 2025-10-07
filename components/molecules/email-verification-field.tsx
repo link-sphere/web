@@ -1,4 +1,3 @@
-// src/components/molecules/email-verification-field.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -19,6 +18,7 @@ interface EmailVerificationFieldProps {
   showVerificationInput: boolean;
   onShowVerificationInput: (show: boolean) => void;
   disabled?: boolean;
+  locale?: "ko" | "en";
 }
 
 export function EmailVerificationField({
@@ -31,11 +31,49 @@ export function EmailVerificationField({
   showVerificationInput,
   onShowVerificationInput,
   disabled = false,
+  locale = "ko",
 }: EmailVerificationFieldProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { remaining, isActive, start, stop, reset, mm, ss } = useCountdown(180);
+
+  const t =
+    locale === "ko"
+      ? {
+          emailLabel: "이메일",
+          emailPlaceholder: "name@example.com",
+          request: "인증요청",
+          verifyLabel: "인증코드",
+          verifyPlaceholder: "6자리 인증코드를 입력하세요",
+          verifyButton: "인증확인",
+          resend: "재전송",
+          expiredAlert: "인증코드가 만료되었습니다. 재전송을 눌러 새 코드를 받아주세요.",
+          errorEmptyEmail: "이메일을 입력해주세요",
+          errorEmptyCode: "인증코드를 입력해주세요",
+          errorExpired: "인증코드가 만료되었습니다. 재전송 후 다시 시도해주세요.",
+          errorNetwork: "네트워크 오류가 발생했습니다",
+          successSend: "인증코드가 이메일로 전송되었습니다",
+          successResend: "인증코드를 재전송했습니다",
+          successVerify: "이메일 인증이 완료되었습니다",
+        }
+      : {
+          emailLabel: "Email",
+          emailPlaceholder: "name@example.com",
+          request: "Send Code",
+          verifyLabel: "Verification Code",
+          verifyPlaceholder: "Enter 6-digit code",
+          verifyButton: "Verify",
+          resend: "Resend",
+          expiredAlert: "Verification code expired. Please resend to get a new one.",
+          errorEmptyEmail: "Please enter your email address",
+          errorEmptyCode: "Please enter the verification code",
+          errorExpired: "Verification code expired. Please resend and try again.",
+          errorNetwork: "A network error occurred. Please try again.",
+          successSend: "Verification code sent to your email",
+          successResend: "Verification code resent successfully",
+          successVerify: "Email verified successfully",
+        };
 
   // Stop timer once verified
   useEffect(() => {
@@ -44,7 +82,7 @@ export function EmailVerificationField({
 
   const handleRequestVerification = async () => {
     if (!email) {
-      setError("이메일을 입력해주세요");
+      setError(t.errorEmptyEmail);
       return;
     }
 
@@ -62,15 +100,15 @@ export function EmailVerificationField({
 
       const result = await AuthService.requestVerificationCode(email);
       if (result.success) {
-        setSuccess("인증코드가 이메일로 전송되었습니다");
+        setSuccess(t.successSend);
         onShowVerificationInput(true);
         reset();
         start();
       } else {
         setError(result.message);
       }
-    } catch (err) {
-      setError("네트워크 오류가 발생했습니다");
+    } catch {
+      setError(t.errorNetwork);
     } finally {
       setIsLoading(false);
     }
@@ -85,14 +123,14 @@ export function EmailVerificationField({
     try {
       const result = await AuthService.requestVerificationCode(email);
       if (result.success) {
-        setSuccess("인증코드를 재전송했습니다");
+        setSuccess(t.successResend);
         reset();
         start();
       } else {
         setError(result.message);
       }
-    } catch (err) {
-      setError("네트워크 오류가 발생했습니다");
+    } catch {
+      setError(t.errorNetwork);
     } finally {
       setIsLoading(false);
     }
@@ -100,13 +138,12 @@ export function EmailVerificationField({
 
   const handleVerifyCode = async () => {
     if (!verificationCode) {
-      setError("인증코드를 입력해주세요");
+      setError(t.errorEmptyCode);
       return;
     }
 
-    // Optional: disallow verifying after timer ends
     if (remaining === 0) {
-      setError("인증코드가 만료되었습니다. 재전송 후 다시 시도해주세요.");
+      setError(t.errorExpired);
       return;
     }
 
@@ -117,14 +154,14 @@ export function EmailVerificationField({
     try {
       const result = await AuthService.verifyCode(email, verificationCode);
       if (result.success) {
-        setSuccess("이메일 인증이 완료되었습니다");
+        setSuccess(t.successVerify);
         onVerificationComplete(true);
         stop();
       } else {
         setError(result.message);
       }
-    } catch (err) {
-      setError("네트워크 오류가 발생했습니다");
+    } catch {
+      setError(t.errorNetwork);
     } finally {
       setIsLoading(false);
     }
@@ -138,13 +175,13 @@ export function EmailVerificationField({
         <InputField
           id="email"
           type="email"
-          label="이메일"
-          placeholder="name@example.com"
+          label={t.emailLabel}
+          placeholder={t.emailPlaceholder}
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           disabled={disabled || showVerificationInput}
           error={error && !showVerificationInput ? error : ""}
-          className="flex-1 min-w-0" // ← 가로 꽉 차게 + 오버플로 방지
+          className="flex-1 min-w-0"
         />
 
         {!showVerificationInput && (
@@ -152,10 +189,10 @@ export function EmailVerificationField({
             type="button"
             onClick={handleRequestVerification}
             disabled={isLoading || !email || disabled}
-            className="shrink-0 self-end" // ← 버튼은 내용만큼, 오른쪽 끝 정렬
+            className="shrink-0 self-end"
           >
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            인증요청
+            {t.request}
           </Button>
         )}
       </div>
@@ -166,8 +203,8 @@ export function EmailVerificationField({
             <InputField
               id="verificationCode"
               type="text"
-              label="인증코드"
-              placeholder="6자리 인증코드를 입력하세요"
+              label={t.verifyLabel}
+              placeholder={t.verifyPlaceholder}
               value={verificationCode}
               onChange={(e) => onVerificationCodeChange(e.target.value)}
               disabled={disabled || isVerified}
@@ -182,12 +219,11 @@ export function EmailVerificationField({
                 disabled={isLoading || !verificationCode || disabled || remaining === 0}
               >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                인증확인
+                {t.verifyButton}
               </Button>
             )}
           </div>
 
-          {/* Timer + Resend */}
           {!isVerified && (
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <div>
@@ -201,18 +237,15 @@ export function EmailVerificationField({
                   onClick={handleResend}
                   disabled={!canResend || isLoading || disabled}
                 >
-                  <RotateCcw className="mr-1 h-4 w-4" /> 재전송
+                  <RotateCcw className="mr-1 h-4 w-4" /> {t.resend}
                 </Button>
               </div>
             </div>
           )}
 
-          {/* Expired helper */}
           {!isVerified && remaining === 0 && (
             <Alert className="mt-1">
-              <AlertDescription>
-                인증코드가 만료되었습니다. 재전송을 눌러 새 코드를 받아주세요.
-              </AlertDescription>
+              <AlertDescription>{t.expiredAlert}</AlertDescription>
             </Alert>
           )}
         </div>

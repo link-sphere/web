@@ -1,62 +1,86 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { InputField } from "@/components/atoms/input-field";
+import { PasswordField } from "@/components/atoms/password-field";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2, Mail } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { InputField } from "@/components/atoms/input-field"
-import { PasswordField } from "@/components/atoms/password-field"
-import { Button } from "@/components/ui/button"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2, Mail } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
+interface LoginFormProps {
+  locale: "ko" | "en";
+}
 
-export function LoginForm() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
+export function LoginForm({ locale }: LoginFormProps) {
+  const t =
+    locale === "ko"
+      ? {
+          email: "이메일",
+          password: "비밀번호",
+          placeholderEmail: "name@example.com",
+          placeholderPassword: "비밀번호를 입력하세요",
+          errorEmpty: "이메일과 비밀번호를 모두 입력해주세요",
+          networkError: "네트워크 오류가 발생했습니다",
+          button: "로그인",
+        }
+      : {
+          email: "Email",
+          password: "Password",
+          placeholderEmail: "name@example.com",
+          placeholderPassword: "Enter your password",
+          errorEmpty: "Please enter both your email and password",
+          networkError: "A network error occurred. Please try again.",
+          button: "Sign In",
+        };
 
-  const { login } = useAuth()
-  const router = useRouter()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const { login } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!email || !password) {
-      setError("이메일과 비밀번호를 모두 입력해주세요")
-      return
+      setError(t.errorEmpty);
+      return;
     }
 
-    setIsLoading(true)
-    setError("")
-    setSuccess("")
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
 
     try {
-      const result = await login(email, password)
+      const result = await login(email, password);
       if (result.success) {
-        setSuccess(result.message)
+        setSuccess(result.message);
         setTimeout(() => {
-          router.push("/")
-        }, 1000)
+          router.push(`/${locale}`);
+        }, 1000);
       } else {
-        setError(result.message)
+        setError(result.message);
       }
-    } catch (err) {
-      setError("네트워크 오류가 발생했습니다")
+    } catch {
+      setError(t.networkError);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <InputField
         id="email"
         type="email"
-        label="이메일"
-        placeholder="name@example.com"
+        label={t.email}
+        placeholder={t.placeholderEmail}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         icon={<Mail className="h-4 w-4" />}
@@ -65,8 +89,8 @@ export function LoginForm() {
 
       <PasswordField
         id="password"
-        label="비밀번호"
-        placeholder="비밀번호를 입력하세요"
+        label={t.password}
+        placeholder={t.placeholderPassword}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
@@ -86,8 +110,8 @@ export function LoginForm() {
 
       <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        로그인
+        {t.button}
       </Button>
     </form>
-  )
+  );
 }

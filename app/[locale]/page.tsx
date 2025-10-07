@@ -136,7 +136,7 @@ export default function HomePage({ params }: LocaleParams) {
                 <h1 className="text-4xl md:text-6xl font-bold text-balance">
                   {t.loggedInTitle}
                   <br />
-                  <span className="text-muted-foreground">{t.login} 완료</span>
+                  <span className="text-muted-foreground">{t.login}</span>
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
                   {t.loggedInDesc}
