@@ -358,7 +358,7 @@ function EnglishPrivacy() {
       <h2 className="mt-6 font-semibold">13. Contact Information</h2>
       <ul className="list-disc pl-5 space-y-1">
         <li>
-          <strong>Data Protection Officer:</strong> Seung-Ryul Lee
+          <strong>Data Protection Officer:</strong> Seung Ryeol Lee
         </li>
         <li>
           <strong>Email:</strong>{" "}

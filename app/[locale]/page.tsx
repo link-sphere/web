@@ -84,7 +84,7 @@ export default function HomePage({ params }: LocaleParams) {
       ],
       footer: {
         copy: "© LeeLoad ALL RIGHTS RESERVED",
-        info: "LeeLoad | CEO: Seung-Ryul Lee | Address: #905, Building 1109, 25, Dongil-ro 227-gil, Seoul, Republic of Korea | Hosting: LeeLoad | Business Reg. No: 843-14-03075",
+        info: "LeeLoad | CEO: Seung Ryeol Lee | Address: #905, Building 1109, 25, Dongil-ro 227-gil, Seoul, Republic of Korea | Hosting: LeeLoad | Business Reg. No: 843-14-03075",
         policy: "Privacy Policy",
         terms: "Terms of Service",
         dispute: "Dispute Resolution",
