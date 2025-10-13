@@ -23,7 +23,7 @@ export class TagService {
   static async createTag(name: string) {
     try {
       // ✅ 서버는 단순 배열 ["패션"] 형식 요구
-      const res = await api.post("/user/tags", [name]);
+      const res = await api.post("/user/tags", [name,name]);
 
       const createdTags = res.data.data || [];
       return {
