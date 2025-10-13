@@ -8,7 +8,7 @@ export interface Tag {
 }
 
 export class TagService {
-  /** 🟢 태그 목록 조회 */
+  /** 태그 목록 조회 */
   static async getTags() {
     try {
       const res = await api.get<{ data: Tag[]; message: string }>("/user/tags");
@@ -19,11 +19,10 @@ export class TagService {
     }
   }
 
-  /** 🟢 태그 생성 */
+  /** 태그 생성 */
   static async createTag(name: string) {
     try {
-      // ✅ 서버는 단순 배열 ["패션"] 형식 요구
-      const res = await api.post("/user/tags", [name,name]);
+      const res = await api.post("/user/tags", ["life","태그"]);
 
       const createdTags = res.data.data || [];
       return {
@@ -37,7 +36,7 @@ export class TagService {
     }
   }
 
-  /** 🟢 태그 삭제 */
+  /** 태그 삭제 */
   static async deleteTag(id: number) {
     try {
       const res = await api.delete("/user/tags", {
