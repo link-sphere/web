@@ -22,7 +22,8 @@ export class TagService {
   /** 🟢 태그 생성 */
   static async createTag(name: string) {
     try {
-      const res = await api.post("/user/tags", { name });
+      // ✅ 서버는 tags: string[] 형태를 요구함
+      const res = await api.post("/user/tags", { tags: [name] });
       return { success: true, message: "태그 생성 완료", data: res.data.data };
     } catch (error: any) {
       console.error(error);
