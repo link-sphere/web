@@ -22,24 +22,24 @@ export class TagService {
   /** 🟢 태그 생성 */
   static async createTag(name: string) {
     try {
-      // ✅ 서버는 tags: string[] 형태를 요구함
-      const res = await api.post("/user/tags", { tags: [name] });
+      const res = await api.post("/user/tags", { tags: [name] }); // ✅ 배열 형태
       return { success: true, message: "태그 생성 완료", data: res.data.data };
     } catch (error: any) {
-      console.error(error);
+      console.error(error.response?.data || error.message);
       return { success: false, message: "태그 생성 실패" };
     }
   }
 
   /** 🟢 태그 삭제 */
-  static async deleteTag(id: number) {
-    try {
-      // 서버에서 id를 body로 받는 형태로 추정됨
-      await api.delete("/user/tags", { data: { id } });
-      return { success: true, message: "태그 삭제 완료" };
-    } catch (error: any) {
-      console.error(error);
-      return { success: false, message: "태그 삭제 실패" };
-    }
+static async deleteTag(id: number) {
+  try {
+    // ✅ 서버는 tagIds: number[] 형태를 요구함
+    const res = await api.delete("/user/tags", {
+      data: { tagIds: [id] },
+    });
+    return { success: true, message: "태그 삭제 완료" };
+  } catch (error: any) {
+    console.error(error.response?.data || error.message);
+    return { success: false, message: "태그 삭제 실패" };
   }
 }
