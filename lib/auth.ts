@@ -1,46 +1,34 @@
-import type { AuthTokens, User, LoginResponse } from "./types";
+import type { User, LoginResponse } from "./types";
+import api from "./axios";
 
 export class AuthService {
   private static readonly BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
 
-  private static getStoredTokens(): AuthTokens | null {
+  static getAccessToken(): string | null {
     if (typeof window === "undefined") return null;
-
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-
-    if (!accessToken || !refreshToken) return null;
-
-    return { accessToken, refreshToken };
+    return localStorage.getItem("accessToken");
   }
 
-  private static setTokens(tokens: AuthTokens): void {
+  static setAccessToken(token: string): void {
     if (typeof window === "undefined") return;
-
-    localStorage.setItem("accessToken", tokens.accessToken);
-    localStorage.setItem("refreshToken", tokens.refreshToken);
+    localStorage.setItem("accessToken", token);
   }
 
-  private static clearTokens(): void {
+  static clearSession(): void {
     if (typeof window === "undefined") return;
-
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
   }
 
-  private static setUser(user: User): void {
+  static setUser(user: User): void {
     if (typeof window === "undefined") return;
-
     localStorage.setItem("user", JSON.stringify(user));
   }
 
   static getUser(): User | null {
     if (typeof window === "undefined") return null;
-
     const userStr = localStorage.getItem("user");
     if (!userStr) return null;
-
     try {
       return JSON.parse(userStr);
     } catch {
@@ -48,9 +36,9 @@ export class AuthService {
     }
   }
 
-  static isAuthenticated(): boolean {
-    const tokens = this.getStoredTokens();
-    return !!tokens?.accessToken;
+  static autoLogout() {
+    this.clearSession();
+    return { success: true, message: "인증이 만료되어 자동 로그아웃되었습니다." };
   }
 
   private static async handleApiResponse<T>(
@@ -81,118 +69,65 @@ export class AuthService {
     }
   }
 
-  // 유저 로그인
+  // 로그인
   static async login(email: string, password: string) {
     try {
-      const response = await fetch(`${this.BASE_URL}/auth/user/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: email,
-          password: password,
-        }),
-      });
+      const res = await api.post<LoginResponse>(
+        "/auth/user/login",
+        { identifier: email, password },
+        { withCredentials: true }
+      );
 
-      const result = await this.handleApiResponse<LoginResponse>(response);
-
-      if (result.success && result.data) {
-        const mockUser: User = {
-          id: Date.now().toString(),
-          email: email,
-          accountType: result.data.accountType,
-          planType: result.data.planType,
-          createdAt: new Date().toISOString(),
-        };
-
-        const tokens: AuthTokens = {
-          accessToken: result.data.accessToken,
-          refreshToken: result.data.refreshToken,
-        };
-
-        this.setTokens(tokens);
-        this.setUser(mockUser);
-
-        return {
-          success: true,
-          message: result.message,
-          data: {
-            user: mockUser,
-            tokens: tokens,
-          },
-        };
-      }
-
-      return result;
-    } catch (error) {
-      return {
-        success: false,
-        message: "네트워크 오류가 발생했습니다",
+      const { data } = res.data;
+      const user: User = {
+        id: Date.now().toString(),
+        email,
+        accountType: data.accountType,
+        planType: data.planType,
+        createdAt: new Date().toISOString(),
       };
+
+      this.setAccessToken(data.accessToken);
+      this.setUser(user);
+
+      return { success: true, message: res.data.message, data: { user } };
+    } catch (error: any) {
+      const msg =
+        error.response?.data?.message?.message ||
+        error.response?.data?.message ||
+        "로그인 중 오류가 발생했습니다.";
+      return { success: false, message: msg };
     }
   }
 
-  // 유저 회원가입
+  // 회원가입 (가입 후 accessToken, 쿠키 자동 발급)
   static async signup(email: string, password: string) {
     try {
-      const response = await fetch(`${this.BASE_URL}/auth/user/sign-up`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: email,
-          password: password,
-        }),
-      });
+      const res = await api.post<LoginResponse>(
+        "/auth/user/sign-up",
+        { identifier: email, password },
+        { withCredentials: true }
+      );
 
-      const result = await this.handleApiResponse(response);
-
-      if (result.success) {
-        return await this.login(email, password);
-      }
-
-      return result;
-    } catch (error) {
-      return {
-        success: false,
-        message: "네트워크 오류가 발생했습니다",
+      const { data } = res.data;
+      const user: User = {
+        id: Date.now().toString(),
+        email,
+        accountType: data.accountType,
+        planType: data.planType,
+        createdAt: new Date().toISOString(),
       };
-    }
-  }
 
-  // 유저 로그아웃
-  static async logout() {
-    try {
-      const tokens = this.getStoredTokens();
-      if (!tokens) {
-        this.clearTokens();
-        return { success: true, message: "로그아웃 완료" };
-      }
+      this.setAccessToken(data.accessToken);
+      this.setUser(user);
 
-      const response = await fetch(`${this.BASE_URL}/auth/user/logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokens.accessToken}`,
-        },
-        body: JSON.stringify({
-          accessToken: tokens.accessToken,
-          refreshToken: tokens.refreshToken,
-        }),
-      });
-
-      const result = await this.handleApiResponse(response);
-      this.clearTokens();
-
-      return {
-        success: true,
-        message: result.message || "로그아웃 완료",
-      };
-    } catch (error) {
-      this.clearTokens();
-      return { success: true, message: "로그아웃 완료" };
+      return { success: true, message: res.data.message, data: { user } };
+    } catch (error: any) {
+      const msg =
+        error.response?.data?.message?.message ||
+        error.response?.data?.message ||
+        "회원가입 중 오류가 발생했습니다.";
+      return { success: false, message: msg };
     }
   }
 
@@ -224,39 +159,44 @@ export class AuthService {
   // 비밀번호 변경
   static async changePassword(oldPassword: string, newPassword: string) {
     try {
-      const tokens = this.getStoredTokens();
-      if (!tokens) {
+      const accessToken = this.getAccessToken();
+      if (!accessToken) {
+        return { success: false, message: "인증이 필요합니다." };
+      }
+
+      const res = await api.patch(
+        "/auth/user/password",
+        { oldPassword, newPassword },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (res.status === 200) {
         return {
-          success: false,
-          message: "인증이 필요합니다",
+          success: true,
+          message: res.data.message || "비밀번호 변경 완료",
         };
       }
 
-      const response = await fetch(`${this.BASE_URL}/auth/user/password`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokens.accessToken}`,
-        },
-        body: JSON.stringify({
-          oldPassword: oldPassword,
-          newPassword: newPassword,
-        }),
-      });
-
-      if (response.status == 200) {
-        return { success: true, message: "비밀번호 변경 완료" };
-      }
-      if (response.status === 400) {
-        return { success: false, message: "비밀번호가 올바르지 않습니다." };
+      return { success: false, message: "알 수 없는 오류가 발생했습니다." };
+    } catch (error: any) {
+      if (error.response?.status === 400) {
+        const msg =
+          error.response?.data?.message?.message ||
+          error.response?.data?.message ||
+          "비밀번호가 올바르지 않습니다.";
+        return { success: false, message: msg };
       }
 
-      return await this.handleApiResponse(response);
-    } catch (error) {
-      return {
-        success: false,
-        message: "네트워크 오류가 발생했습니다",
-      };
+      if (error.response?.status === 500) {
+        return { success: false, message: "서버 내부 오류가 발생했습니다." };
+      }
+
+      return { success: false, message: "네트워크 오류가 발생했습니다." };
     }
   }
 
@@ -341,49 +281,24 @@ export class AuthService {
   }
 
   // 토큰 재발급
-  static async refreshTokens() {
+  static async refreshAccessToken() {
     try {
-      const tokens = this.getStoredTokens();
-      if (!tokens) {
-        return {
-          success: false,
-          message: "토큰이 없습니다",
-        };
+      const res = await api.post<LoginResponse>(
+        "/auth/user/token-reissue",
+        {},
+        { withCredentials: true }
+      );
+      const { data } = res.data;
+
+      if (data?.accessToken) {
+        this.setAccessToken(data.accessToken);
+        return { success: true, message: res.data.message };
       }
 
-      const response = await fetch(`${this.BASE_URL}/auth/user/token-reissue`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          refreshToken: tokens.refreshToken,
-        }),
-      });
-
-      const result = await this.handleApiResponse<LoginResponse>(response);
-
-      if (result.success && result.data) {
-        const newTokens: AuthTokens = {
-          accessToken: result.data.accessToken,
-          refreshToken: result.data.refreshToken,
-        };
-
-        this.setTokens(newTokens);
-
-        return {
-          success: true,
-          message: result.message,
-          data: newTokens,
-        };
-      }
-
-      return result;
-    } catch (error) {
-      return {
-        success: false,
-        message: "네트워크 오류가 발생했습니다",
-      };
+      return { success: false, message: "토큰 재발급 실패" };
+    } catch (error: any) {
+      this.autoLogout();
+      return { success: false, message: "토큰 재발급 실패" };
     }
   }
 }
