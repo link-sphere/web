@@ -1,3 +1,4 @@
+// app/[locale]/auth/change-password/page.tsx
 import { ChangePasswordForm } from "@/components/molecules/change-password-form";
 
 interface LocaleParams {

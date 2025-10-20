@@ -1,3 +1,4 @@
+// app/[locale]/page.tsx
 "use client";
 
 import { useAuth } from "@/hooks/use-auth";

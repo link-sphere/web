@@ -1,3 +1,4 @@
+// src/components/molecules/email-verification-field.tsx
 "use client";
 
 import { useState, useEffect } from "react";

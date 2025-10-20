@@ -1,3 +1,4 @@
+// src/components/templates/auth-template.tsx
 "use client";
 
 import type React from "react";

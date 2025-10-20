@@ -1,3 +1,4 @@
+// app/[locale]/auth/forgot-password/page.tsx
 import { ForgotPasswordForm } from "@/components/molecules/forgot-password-form";
 
 interface LocaleParams {

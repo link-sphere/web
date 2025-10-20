@@ -1,3 +1,4 @@
+// app/[locale]/auth/login/page.tsx
 import { AuthTemplate } from "@/components/templates/auth-template";
 import { LoginForm } from "@/components/organisms/login-form";
 

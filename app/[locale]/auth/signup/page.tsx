@@ -1,3 +1,5 @@
+// app/[locale]/auth/signup/page.tsx
+
 import { AuthTemplate } from "@/components/templates/auth-template";
 import { SignupForm } from "@/components/organisms/signup-form";
 
