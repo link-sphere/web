@@ -3,10 +3,10 @@ import { AuthService } from "./auth";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE,
-  withCredentials: true, // ✅ refresh_token 쿠키 자동 전송
+  withCredentials: true,
 });
 
-// ✅ 요청 인터셉터 — accessToken 자동 포함
+// 요청 인터셉터 — accessToken 자동 포함
 api.interceptors.request.use(
   (config) => {
     const token = AuthService.getAccessToken();
@@ -18,7 +18,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ✅ 응답 인터셉터 — 401 시 자동 재발급
+// 응답 인터셉터 — 401 시 자동 재발급
 let isRefreshing = false;
 let refreshSubscribers: ((token: string | null) => void)[] = [];
 

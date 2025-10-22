@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { InputField } from "@/components/atoms/input-field";
+import { InputField } from "@/components/auth/atoms/input-field";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, RotateCcw } from "lucide-react";

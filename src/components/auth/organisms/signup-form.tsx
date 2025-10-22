@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { EmailVerificationField } from "@/components/molecules/email-verification-field";
-import { PasswordConfirmationField } from "@/components/molecules/password-confirmation-field";
+import { EmailVerificationField } from "@/components/auth/molecules/email-verification-field";
+import { PasswordConfirmationField } from "@/components/auth/molecules/password-confirmation-field";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";

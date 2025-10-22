@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { InputField } from "@/components/atoms/input-field";
-import { PasswordField } from "@/components/atoms/password-field";
+import { InputField } from "@/components/auth/atoms/input-field";
+import { PasswordField } from "@/components/auth/atoms/password-field";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Mail } from "lucide-react";

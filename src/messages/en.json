@@ -108,5 +108,14 @@
       "hasAccount": "Already have an account?",
       "login": "Sign In"
     }
+  },
+  "userMenu": {
+    "logoutTitle": "Signed Out",
+    "logoutDesc": "You have been successfully logged out.",
+    "logoutFail": "Logout Failed",
+    "logoutFailDesc": "An error occurred while logging out.",
+    "changePw": "Change Password",
+    "loggingOut": "Logging out...",
+    "logout": "Sign Out"
   }
 }
