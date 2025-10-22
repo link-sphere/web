@@ -21,7 +21,7 @@ export function UserMenu() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const t = useTranslations("userMenu");
+  const t = useTranslations("auth.userMenu");
 
   const handleLogout = async () => {
     try {

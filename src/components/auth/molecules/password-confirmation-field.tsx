@@ -19,7 +19,7 @@ export function PasswordConfirmationField({
   onConfirmPasswordChange,
   disabled = false,
 }: PasswordConfirmationFieldProps) {
-  const t = useTranslations("passwordConfirmation");
+  const t = useTranslations("auth.passwordConfirmation");
 
   const passwordsMatch = password && confirmPassword && password === confirmPassword;
   const showMismatch = confirmPassword && password !== confirmPassword;

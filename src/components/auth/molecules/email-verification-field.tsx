@@ -37,7 +37,7 @@ export function EmailVerificationField({
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { remaining, isActive, start, stop, reset, mm, ss } = useCountdown(180);
-  const t = useTranslations("emailVerification");
+  const t = useTranslations("auth.emailVerification");
 
   useEffect(() => {
     if (isVerified) stop();

@@ -107,40 +107,40 @@
       "signup": "회원가입",
       "hasAccount": "이미 계정이 있으신가요?",
       "login": "로그인"
+    },
+    "userMenu": {
+      "logoutTitle": "로그아웃 완료",
+      "logoutDesc": "성공적으로 로그아웃되었습니다.",
+      "logoutFail": "로그아웃 실패",
+      "logoutFailDesc": "로그아웃 중 오류가 발생했습니다.",
+      "changePw": "비밀번호 재설정",
+      "loggingOut": "로그아웃 중...",
+      "logout": "로그아웃"
+    },
+    "emailVerification": {
+      "emailLabel": "이메일",
+      "emailPlaceholder": "name@example.com",
+      "request": "인증요청",
+      "verifyLabel": "인증코드",
+      "verifyPlaceholder": "6자리 인증코드를 입력하세요",
+      "verifyButton": "인증확인",
+      "resend": "재전송",
+      "expiredAlert": "인증코드가 만료되었습니다. 재전송을 눌러 새 코드를 받아주세요.",
+      "errorEmptyEmail": "이메일을 입력해주세요",
+      "errorEmptyCode": "인증코드를 입력해주세요",
+      "errorExpired": "인증코드가 만료되었습니다. 재전송 후 다시 시도해주세요.",
+      "errorNetwork": "네트워크 오류가 발생했습니다",
+      "successSend": "인증코드가 이메일로 전송되었습니다",
+      "successResend": "인증코드를 재전송했습니다",
+      "successVerify": "이메일 인증이 완료되었습니다"
+    },
+    "passwordConfirmation": {
+      "passwordLabel": "비밀번호",
+      "passwordPlaceholder": "비밀번호를 입력하세요",
+      "confirmLabel": "비밀번호 확인",
+      "confirmPlaceholder": "비밀번호를 다시 입력하세요",
+      "mismatch": "비밀번호가 일치하지 않습니다",
+      "match": "비밀번호가 일치합니다"
     }
-  },
-  "userMenu": {
-    "logoutTitle": "로그아웃 완료",
-    "logoutDesc": "성공적으로 로그아웃되었습니다.",
-    "logoutFail": "로그아웃 실패",
-    "logoutFailDesc": "로그아웃 중 오류가 발생했습니다.",
-    "changePw": "비밀번호 재설정",
-    "loggingOut": "로그아웃 중...",
-    "logout": "로그아웃"
-  },
-  "emailVerification": {
-    "emailLabel": "이메일",
-    "emailPlaceholder": "name@example.com",
-    "request": "인증요청",
-    "verifyLabel": "인증코드",
-    "verifyPlaceholder": "6자리 인증코드를 입력하세요",
-    "verifyButton": "인증확인",
-    "resend": "재전송",
-    "expiredAlert": "인증코드가 만료되었습니다. 재전송을 눌러 새 코드를 받아주세요.",
-    "errorEmptyEmail": "이메일을 입력해주세요",
-    "errorEmptyCode": "인증코드를 입력해주세요",
-    "errorExpired": "인증코드가 만료되었습니다. 재전송 후 다시 시도해주세요.",
-    "errorNetwork": "네트워크 오류가 발생했습니다",
-    "successSend": "인증코드가 이메일로 전송되었습니다",
-    "successResend": "인증코드를 재전송했습니다",
-    "successVerify": "이메일 인증이 완료되었습니다"
-  },
-  "passwordConfirmation": {
-    "passwordLabel": "비밀번호",
-    "passwordPlaceholder": "비밀번호를 입력하세요",
-    "confirmLabel": "비밀번호 확인",
-    "confirmPlaceholder": "비밀번호를 다시 입력하세요",
-    "mismatch": "비밀번호가 일치하지 않습니다",
-    "match": "비밀번호가 일치합니다"
   }
 }
