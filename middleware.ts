@@ -4,5 +4,9 @@ import createMiddleware from "next-intl/middleware";
 export default createMiddleware(routing);
 
 export const config = {
-  matcher: ["/", "/(ko|en)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: [
+    "/",
+    "/(ko|en)/:path*",
+    "/((?!api|_next|_vercel|.*\\..*|favicon.ico|logo.png|fonts|images).*)",
+  ],
 };
