@@ -1,11 +1,5 @@
-// app/[locale]/auth/forgot-password/page.tsx
 import { ForgotPasswordForm } from "@/components/molecules/forgot-password-form";
 
-interface LocaleParams {
-  params: { locale: "ko" | "en" };
-}
-
-export default function ForgotPasswordPage({ params }: LocaleParams) {
-  const { locale } = params;
-  return <ForgotPasswordForm locale={locale} />;
+export default function ForgotPasswordPage() {
+  return <ForgotPasswordForm />;
 }
