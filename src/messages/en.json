@@ -1,0 +1,146 @@
+{
+  "agreement": {
+    "dispute": {
+      "title": "Dispute Resolution Policy",
+      "home": "Go to Home",
+      "chapter1": {
+        "title": "Chapter 1. General Provisions",
+        "content": "Article 1 (Purpose)\nThis Policy aims to establish procedures and standards for the prompt and fair resolution of disputes between LeeLoad Inc. (hereinafter referred to as the “Company”) and users (hereinafter referred to as the “Users”) arising from the use of the Company’s subscription-based social media management platform (hereinafter referred to as the “Service”).\n\nArticle 2 (Definitions)\n1. “Service” refers to all online subscription-based services provided by the Company, including but not limited to social media account integration, scheduled posting, analytics and statistics, and message management.\n2. “User” means any individual or legal entity that has entered into a service agreement with the Company and uses the Service provided by the Company.\n3. “Subscription” means a contract under which the User pays a certain fee to use the Service for a specified period.\n4. “Service Agreement” refers to the contractual relationship established between the Company and the User for the use of the Service.\n5. “Dispute” means any disagreement, claim for damages, refund, or termination arising from the use of the Service between the Company and the User.\n\nArticle 3 (Scope of Application)\n1. This Policy applies to all disputes between the Company and the User regarding the use of the Service.\n2. Any matters not specified in this Policy shall be governed by the Service Terms of Use and applicable laws and regulations.\n\nArticle 4 (Amendment of the Policy)\n1. The Company may amend this Policy to the extent that such amendment does not violate relevant laws, including the Act on the Consumer Protection in Electronic Commerce, the Content Industry Promotion Act, and the Framework Act on Consumers.\n2. Any amendment to this Policy shall be announced through the Service at least seven (7) days prior to its effective date. Users who do not agree to the amended terms may terminate their Service Agreement."
+      },
+      "chapter2": {
+        "title": "Chapter 2. Standards for Dispute Resolution Between the Company and Users",
+        "content": "Article 5 (Termination of Agreement and Refund Policy)\n1. Users may terminate their subscription at any time through the cancellation process provided within the Service.\n2. Refunds shall be processed according to the following criteria:\n1) Before the start of use: Full refund of the payment.\n2) Within seven (7) days after the start of use: Refund after deducting the usage period and service cost.\n3) After seven (7) days of use: No refund (except in cases where service disruption is caused by the Company).\n3. The Company shall process the refund within three (3) business days from the date the refund obligation arises. The actual processing time may vary depending on the payment method used.\n4. Refunds shall be processed in accordance with Article 22 of the Enforcement Decree of the Act on the Consumer Protection in Electronic Commerce, following the procedures applicable to each payment method.\n\nArticle 6 (Service Interruptions and Company’s Liability)\n1. In the event of service interruption or data loss caused by the Company’s willful misconduct or gross negligence, the Company shall compensate the User for damages.\n2. However, the Company shall not be liable for any of the following:\n1) Force majeure events such as natural disasters, power outages, or data center failures;\n2) Disruptions caused by the User’s negligence or misconduct;\n3) Service restrictions or policy changes by external platforms (e.g., API providers) beyond the Company’s control.\n3. If a service outage or malfunction lasts for more than twenty-four (24) hours and causes material inconvenience to the User, the Company shall extend the subscription period proportionally or issue a partial refund corresponding to the duration of the disruption.\n\nArticle 7 (Data and Account Management Responsibility)\n1. Users are responsible for managing their accounts and connected social media accounts. The Company shall not be held liable for any damages resulting from account sharing, loss, or unauthorized access caused by the User’s negligence.\n2. The Company shall take technical and administrative measures to protect User data. If a data breach or security incident occurs, the Company shall promptly notify affected Users and take necessary remedial actions.\n\nArticle 8 (Compensation for Damages)\n1. If either the Company or the User causes damage to the other party by violating this Policy or the Service Terms of Use, the party at fault shall compensate for the damages incurred.\n2. However, the Company shall not be liable for damages arising from unforeseeable circumstances inherent to the Service, such as transmission delays or changes in social media API policies.\n\nArticle 9 (Service Suspension or Modification)\n1. The Company may temporarily suspend the Service for system maintenance, feature updates, or service stabilization, and shall notify Users in advance whenever possible.\n2. If prior notice is not feasible due to unavoidable reasons, the Company shall notify Users without delay after the fact.\n3. If a suspension or modification of the Service causes material damage to the User, the Company shall extend the Service period or issue a refund proportional to the affected duration."
+      },
+      "chapter3": {
+        "title": "Chapter 3. Dispute Resolution Procedure",
+        "content": "Article 10 (Filing and Handling of Disputes)\n1. Users may file complaints, claims, or disputes related to the Service through the Company’s customer support channels.\n2. The Company shall respond to and process the dispute within seven (7) business days from the date of receipt. If the handling is delayed due to unavoidable circumstances, the Company shall inform the User of the reason for the delay and the expected processing date.\n3. If the User disagrees with the Company’s resolution, the User may seek mediation through the Content Dispute Mediation Committee under the Content Industry Promotion Act or the Korea Consumer Agency under the Framework Act on Consumers."
+      },
+      "addendum": {
+        "title": "Addendum",
+        "content": "Article 1 (Effective Date) — This Dispute Resolution Policy shall take effect as of September 29, 2025."
+      }
+    }
+  },
+  "home": {
+    "brand": "Postio",
+    "heroTitle": "All-in-one",
+    "heroSubtitle": "Social Publishing & Scheduling",
+    "heroDesc": "Connect Instagram, X, and Facebook securely. Manage your workflow from draft → approval → scheduling → performance reports easily.",
+    "start": "Get Started",
+    "login": "Sign In",
+    "loggedInTitle": "Welcome!",
+    "loggedInDesc": "You’re successfully logged in. Manage your account from the top-right menu.",
+    "features": {
+      "secure": "Secure Account Linking",
+      "collab": "Team Collaboration & Approval Workflow",
+      "schedule": "Auto Scheduling & Queue Management"
+    },
+    "footer": {
+      "copy": "© LeeLoad ALL RIGHTS RESERVED",
+      "info": "LeeLoad | CEO: Seung Ryeol Lee | Address: #905, 1109 Bldg, 25 Dongil-ro 227-gil, Seoul | Hosting: LeeLoad | Biz No: 843-14-03075",
+      "policy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "dispute": "Dispute Resolution"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "desc": "Enter your email and password",
+      "email": "Email",
+      "password": "Password",
+      "placeholderEmail": "name@example.com",
+      "placeholderPassword": "Enter your password",
+      "errorEmpty": "Please enter both your email and password",
+      "networkError": "A network error occurred. Please try again.",
+      "button": "Sign In"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "desc": "Verify your email and set your password",
+      "emailVerify": "Please complete email verification",
+      "allFields": "Please fill in all fields",
+      "pwMismatch": "Passwords do not match",
+      "networkError": "A network error occurred. Please try again.",
+      "success": "Sign up successful",
+      "button": "Sign Up"
+    },
+    "forgot": {
+      "title": "Forgot Password",
+      "desc": "Enter your email address",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "codeLabel": "Verification Code",
+      "codePlaceholder": "6-digit code",
+      "sendCode": "Send Code",
+      "resend": "Resend Code",
+      "confirm": "Verify",
+      "back": "Back",
+      "tempPassword": "Temporary Password",
+      "tempNote": "Please change your password after logging in.",
+      "goLogin": "Go to Login",
+      "errorNoAccount": "No account found with this email. Please sign up first.",
+      "errorNetwork": "A network error occurred. Please try again.",
+      "errorExpired": "Verification code expired. Please resend and try again.",
+      "successSend": "Verification code has been sent to your email.",
+      "successResend": "Verification code resent successfully.",
+      "successReset": "A temporary password has been issued."
+    },
+    "change": {
+      "title": "Change Password",
+      "desc": "For security reasons, it’s recommended to update your password regularly.",
+      "old": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "placeholderOld": "Enter your current password",
+      "placeholderNew": "Enter a new password (min. 6 characters)",
+      "placeholderConfirm": "Re-enter your new password",
+      "mismatch": "New passwords do not match",
+      "tooShort": "New password must be at least 6 characters long",
+      "networkError": "A network error occurred. Please try again.",
+      "success": "Your password has been successfully changed.",
+      "button": "Change Password"
+    },
+    "template": {
+      "forgot": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Sign In"
+    }
+  },
+  "userMenu": {
+    "logoutTitle": "Signed Out",
+    "logoutDesc": "You have been successfully logged out.",
+    "logoutFail": "Logout Failed",
+    "logoutFailDesc": "An error occurred while logging out.",
+    "changePw": "Change Password",
+    "loggingOut": "Logging out...",
+    "logout": "Sign Out"
+  },
+  "emailVerification": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "request": "Send Code",
+    "verifyLabel": "Verification Code",
+    "verifyPlaceholder": "Enter 6-digit code",
+    "verifyButton": "Verify",
+    "resend": "Resend",
+    "expiredAlert": "Verification code expired. Please resend to get a new one.",
+    "errorEmptyEmail": "Please enter your email address",
+    "errorEmptyCode": "Please enter the verification code",
+    "errorExpired": "Verification code expired. Please resend and try again.",
+    "errorNetwork": "A network error occurred. Please try again.",
+    "successSend": "Verification code sent to your email",
+    "successResend": "Verification code resent successfully",
+    "successVerify": "Email verified successfully"
+  },
+  "passwordConfirmation": {
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "confirmLabel": "Confirm Password",
+    "confirmPlaceholder": "Re-enter your password",
+    "mismatch": "Passwords do not match",
+    "match": "Passwords match"
+  }
+}

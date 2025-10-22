@@ -1,4 +1,4 @@
-import type { User, LoginResponse } from "./types";
+import type { User, AuthResponse } from "./types";
 import api from "./axios";
 
 export class AuthService {
@@ -72,22 +72,27 @@ export class AuthService {
   // 로그인
   static async login(email: string, password: string) {
     try {
-      const res = await api.post<LoginResponse>(
+      const res = await api.post<AuthResponse>(
         "/auth/user/login",
         { identifier: email, password },
         { withCredentials: true }
       );
 
-      const { data } = res.data;
+      // 👇 res.data.data로 접근
+      if (!res.data.data) {
+        return { success: false, message: "로그인 응답 데이터가 없습니다." };
+      }
+
+      const { accessToken, accountType, planType } = res.data.data;
       const user: User = {
         id: Date.now().toString(),
         email,
-        accountType: data.accountType,
-        planType: data.planType,
+        accountType,
+        planType,
         createdAt: new Date().toISOString(),
       };
 
-      this.setAccessToken(data.accessToken);
+      this.setAccessToken(accessToken);
       this.setUser(user);
 
       return { success: true, message: res.data.message, data: { user } };
@@ -103,22 +108,26 @@ export class AuthService {
   // 회원가입 (가입 후 accessToken, 쿠키 자동 발급)
   static async signup(email: string, password: string) {
     try {
-      const res = await api.post<LoginResponse>(
+      const res = await api.post<AuthResponse>(
         "/auth/user/sign-up",
         { identifier: email, password },
         { withCredentials: true }
       );
 
-      const { data } = res.data;
+      if (!res.data.data) {
+        return { success: false, message: "회원가입 응답 데이터가 없습니다." };
+      }
+
+      const { accessToken, accountType, planType } = res.data.data;
       const user: User = {
         id: Date.now().toString(),
         email,
-        accountType: data.accountType,
-        planType: data.planType,
+        accountType,
+        planType,
         createdAt: new Date().toISOString(),
       };
 
-      this.setAccessToken(data.accessToken);
+      this.setAccessToken(accessToken);
       this.setUser(user);
 
       return { success: true, message: res.data.message, data: { user } };
@@ -283,15 +292,15 @@ export class AuthService {
   // 토큰 재발급
   static async refreshAccessToken() {
     try {
-      const res = await api.post<LoginResponse>(
+      const res = await api.post<AuthResponse>(
         "/auth/user/token-reissue",
         {},
         { withCredentials: true }
       );
-      const { data } = res.data;
 
-      if (data?.accessToken) {
-        this.setAccessToken(data.accessToken);
+      // 👇 res.data.data로 접근
+      if (res.data.data?.accessToken) {
+        this.setAccessToken(res.data.data.accessToken);
         return { success: true, message: res.data.message };
       }
 
