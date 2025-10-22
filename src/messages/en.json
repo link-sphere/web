@@ -117,5 +117,30 @@
     "changePw": "Change Password",
     "loggingOut": "Logging out...",
     "logout": "Sign Out"
+  },
+  "emailVerification": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "request": "Send Code",
+    "verifyLabel": "Verification Code",
+    "verifyPlaceholder": "Enter 6-digit code",
+    "verifyButton": "Verify",
+    "resend": "Resend",
+    "expiredAlert": "Verification code expired. Please resend to get a new one.",
+    "errorEmptyEmail": "Please enter your email address",
+    "errorEmptyCode": "Please enter the verification code",
+    "errorExpired": "Verification code expired. Please resend and try again.",
+    "errorNetwork": "A network error occurred. Please try again.",
+    "successSend": "Verification code sent to your email",
+    "successResend": "Verification code resent successfully",
+    "successVerify": "Email verified successfully"
+  },
+  "passwordConfirmation": {
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "confirmLabel": "Confirm Password",
+    "confirmPlaceholder": "Re-enter your password",
+    "mismatch": "Passwords do not match",
+    "match": "Passwords match"
   }
 }

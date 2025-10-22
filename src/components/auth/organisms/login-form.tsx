@@ -7,7 +7,7 @@ import { InputField } from "@/components/auth/atoms/input-field";
 import { PasswordField } from "@/components/auth/atoms/password-field";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, Mail } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 export function LoginForm() {
@@ -58,7 +58,6 @@ export function LoginForm() {
         placeholder={t("placeholderEmail")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        icon={<Mail className="h-4 w-4" />}
         required
       />
 
