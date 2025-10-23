@@ -7,25 +7,19 @@ assignees: ''
 
 ---
 
-name: "✨ Feature"
-description: "새로운 기능 추가"
-labels: ["feature"]
-body:
-  - type: textarea
-    attributes:
-      label: 📄 설명
-      description: 새로운 기능에 대한 설명을 작성해 주세요.
-      placeholder: 자세히 적을수록 좋습니다!
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: ✅ 작업할 내용
-      description: 할 일을 체크박스 형태로 작성해주세요.
-      placeholder: 최대한 세분화 해서 적어주세요!
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: 🙋🏻 참고 자료
-      description: 참고 자료가 있다면 작성해 주세요.
+### 📝 작업 내용
+
+- [ ] (작업 내용을 상세하게 작성)
+- [ ] (예시: 로그인 기능 구현)
+- [ ] (예시: 게시물 상세 페이지 UI 개선)
+
+### 🚀 구현 목표
+
+- (해당 기능을 통해 달성하려는 목표를 구체적으로 설명)
+- (예시: 사용자가 이메일과 비밀번호로 안전하게 로그인할 수 있도록 함)
+
+### 🚧 참고 사항
+
+- (참고할 자료, 해결해야 할 기술적 문제, 다른 이슈와의 연관성 등을 작성)
+- (예시: Figma 디자인 참고)
+- (예시: 백엔드 API 명세서 확인 필요)
