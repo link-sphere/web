@@ -142,5 +142,312 @@
       "mismatch": "비밀번호가 일치하지 않습니다",
       "match": "비밀번호가 일치합니다"
     }
+  },
+  "navigation": {
+    "deploy": "배포",
+    "create": "생성",
+    "manage": "관리",
+    "analytics": "분석",
+    "myPage": "마이페이지"
+  },
+  "platforms": {
+    "all": "전체",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "threads": "Threads",
+    "linkedin": "LinkedIn",
+    "tiktok": "TikTok",
+    "youtube": "YouTube"
+  },
+  "deploy": {
+    "title": "배포",
+    "description": "게시물을 관리하고 배포하세요",
+    "createPost": "게시글 생성",
+    "tabs": {
+      "draft": "임시",
+      "scheduled": "예약",
+      "approved": "승인",
+      "published": "배포"
+    }
+  },
+  "create": {
+    "title": "버전 관리",
+    "description": "게시물 아이디어를 관리하세요",
+    "versionManagement": "버전 관리",
+    "columns": {
+      "todo": "작업 전",
+      "inProgress": "작업 중",
+      "done": "작업 완료"
+    },
+    "newIdea": "새 아이디어",
+    "createIdea": "아이디어 생성",
+    "editIdea": "아이디어 수정"
+  },
+  "manage": {
+    "title": "관리",
+    "description": "배포된 게시물을 관리하세요",
+    "tabs": {
+      "posts": "게시물",
+      "dm": "DM"
+    },
+    "editPost": "게시물 수정",
+    "manageComments": "댓글 관리"
+  },
+  "analytics": {
+    "title": "분석",
+    "description": "소셜 미디어 성과를 분석하고 인사이트를 얻으세요",
+    "platformOverview": "플랫폼 개요",
+    "crossPlatformTrends": "크로스 플랫폼 트렌드",
+    "postLevelComparison": "게시물별 비교",
+    "period": {
+      "week": "주간",
+      "month": "월간",
+      "year": "연간"
+    }
+  },
+  "post": {
+    "title": "제목",
+    "content": "내용",
+    "image": "이미지",
+    "uploadImage": "이미지 업로드",
+    "dragAndDrop": "드래그 앤 드롭 또는 파일 선택",
+    "edit": "수정",
+    "delete": "삭제",
+    "save": "저장",
+    "cancel": "취소",
+    "create": "생성",
+    "saveIdea": "아이디어 저장"
+  },
+  "stats": {
+    "likes": "좋아요",
+    "comments": "댓글",
+    "shares": "공유",
+    "views": "조회수",
+    "impressions": "노출수",
+    "reactions": "반응",
+    "engagement": "참여도"
+  },
+  "common": {
+    "search": "검색",
+    "filter": "필터",
+    "sort": "정렬",
+    "loading": "로딩 중...",
+    "noData": "데이터가 없습니다",
+    "error": "오류가 발생했습니다"
+  },
+  "dashboard": {
+    "topNavigation": {
+      "create": "생성",
+      "deploy": "배포",
+      "manage": "관리",
+      "analytics": "분석"
+    },
+    "platformSidebar": {
+      "title": "플랫폼",
+      "all": "전체",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "threads": "Threads",
+      "linkedin": "LinkedIn",
+      "tiktok": "TikTok",
+      "youtube": "YouTube"
+    },
+    "createPage": {
+      "title": "버전 관리",
+      "description": "아이디어를 게시물로 만들어보세요"
+    },
+    "kanbanBoard": {
+      "columns": {
+        "unassigned": "작업 전",
+        "inProgress": "작업 중",
+        "toDo": "작업 완료"
+      },
+      "newIdea": "새 아이디어",
+      "addIdea": "아이디어 추가"
+    },
+    "createSidebar": {
+      "title": "메뉴",
+      "versionManagement": "버전 관리"
+    },
+    "createIdeaDialog": {
+      "createTitle": "새 게시물 생성",
+      "editTitle": "게시물 수정",
+      "labelTitle": "제목",
+      "placeholderTitle": "아이디어 제목을 입력하세요...",
+      "labelContent": "내용",
+      "placeholderContent": "아이디어 내용을 입력하세요...",
+      "labelImage": "이미지 업로드",
+      "uploadText1": "드래그하거나",
+      "uploadText2": "파일을 선택하세요",
+      "uploadHint": "이미지 파일을 선택하세요",
+      "createButton": "게시물 생성",
+      "editButton": "수정 완료"
+    },
+    "deployPostsView": {
+      "subtitle": "플랫폼별 게시물을 관리하세요",
+      "searchPlaceholder": "게시물 검색...",
+      "filter": "필터",
+      "createPost": "게시글 생성",
+      "tabs": {
+        "all": "전체",
+        "draft": "임시",
+        "scheduled": "예약",
+        "approved": "승인",
+        "deployed": "배포"
+      },
+      "platforms": {
+        "all": "전체",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      }
+    },
+    "postCard": {
+      "edit": "게시물 수정",
+      "status": {
+        "draft": "초안",
+        "scheduled": "예약됨",
+        "approved": "승인됨",
+        "deployed": "배포됨"
+      }
+    },
+    "postGrid": {
+      "tabs": {
+        "all": "전체",
+        "draft": "초안",
+        "scheduled": "예약됨",
+        "approved": "승인됨",
+        "deployed": "배포됨"
+      }
+    },
+    "managePage": {
+      "subtitle": "배포된 게시물과 소통을 관리하세요",
+      "platforms": {
+        "all": "전체",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "threads": "Threads",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      }
+    },
+    "manageTabs": {
+      "tabs": {
+        "posts": "게시물",
+        "dm": "DM"
+      }
+    },
+    "postManagement": {
+      "searchPlaceholder": "게시물 검색...",
+      "sort": {
+        "placeholder": "정렬",
+        "recent": "최신순",
+        "engagement": "참여도순",
+        "likes": "좋아요순",
+        "comments": "댓글순"
+      },
+      "buttons": {
+        "edit": "게시물 수정",
+        "comments": "댓글 관리"
+      },
+      "comments": {
+        "title": "댓글 관리",
+        "description": "게시물의 댓글을 확인하고 답글을 작성하세요",
+        "total": "댓글 {count}개",
+        "needsAttention": "주의 필요 {count}",
+        "replied": "답변 완료 {count}",
+        "attention": "주의 필요",
+        "done": "답변 완료",
+        "reply": "답글",
+        "replyPlaceholder": "답글 작성...",
+        "replySend": "답글 보내기",
+        "cancel": "취소",
+        "report": "신고"
+      }
+    },
+    "dmManagement": {
+      "searchPlaceholder": "대화 검색...",
+      "badges": {
+        "unread": "읽지 않음 {count}",
+        "starred": "중요 {count}"
+      },
+      "inputPlaceholder": "메시지 입력...",
+      "emptyState": "대화를 선택하세요",
+      "timestamp": {
+        "justNow": "방금"
+      }
+    },
+    "analyticsPage": {
+      "platform": {
+        "all": "전체"
+      },
+      "subtitle": "소셜 미디어 성과를 분석하고 인사이트를 얻으세요"
+    },
+    "overviewAnalytics": {
+      "title": "플랫폼 성과 개요",
+      "period": {
+        "placeholder": "기간 선택",
+        "week": "주간",
+        "month": "월간",
+        "quarter": "분기",
+        "year": "연간"
+      },
+      "platform": {
+        "instagram": { "subtitle": "6333개의 좋아요" },
+        "youtube": { "subtitle": "12,000 조회수" },
+        "tiktok": { "subtitle": "15,000 조회수" },
+        "linkedin": { "subtitle": "20,000 노출" }
+      },
+      "metrics": {
+        "likes": "좋아요",
+        "comments": "댓글",
+        "views": "조회수",
+        "shares": "공유",
+        "impressions": "노출수",
+        "reactions": "반응"
+      },
+      "charts": {
+        "trends": "플랫폼별 트렌드",
+        "comparison": "게시물 비교 분석"
+      },
+      "table": {
+        "thumbnail": "썸네일",
+        "title": "제목",
+        "date": "게시일",
+        "views": "조회수",
+        "likes": "좋아요",
+        "comments": "댓글",
+        "engagement": "참여율"
+      }
+    },
+    "platformAnalytics": {
+      "noData": "해당 플랫폼의 데이터를 찾을 수 없습니다.",
+      "period": {
+        "placeholder": "기간 선택",
+        "7days": "최근 7일",
+        "30days": "최근 30일",
+        "90days": "최근 90일"
+      },
+      "metrics": {
+        "followers": "팔로워",
+        "posts": "게시물",
+        "avgEngagement": "평균 참여율",
+        "reach": "도달률",
+        "engagement": "참여도",
+        "engagementRate": "참여율"
+      },
+      "compare": {
+        "lastWeek": "지난주 대비",
+        "thisMonth": "이번 달"
+      },
+      "charts": {
+        "followersGrowth": "팔로워 성장",
+        "engagementTrend": "참여도 추이",
+        "topPosts": "인기 게시물"
+      }
+    }
   }
 }
