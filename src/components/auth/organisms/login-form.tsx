@@ -38,7 +38,7 @@ export function LoginForm() {
       const result = await login(email, password);
       if (result.success) {
         setSuccess(result.message);
-        setTimeout(() => router.push(`/${locale}`), 1000);
+        setTimeout(() => router.push(`/${locale}/deploy`), 1000);
       } else {
         setError(result.message);
       }

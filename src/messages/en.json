@@ -142,5 +142,312 @@
       "mismatch": "Passwords do not match",
       "match": "Passwords match"
     }
+  },
+  "navigation": {
+    "deploy": "Deploy",
+    "create": "Create",
+    "manage": "Manage",
+    "analytics": "Analytics",
+    "myPage": "My Page"
+  },
+  "platforms": {
+    "all": "All",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "threads": "Threads",
+    "linkedin": "LinkedIn",
+    "tiktok": "TikTok",
+    "youtube": "YouTube"
+  },
+  "deploy": {
+    "title": "Deploy",
+    "description": "Manage and deploy your posts",
+    "createPost": "Create Post",
+    "tabs": {
+      "draft": "Draft",
+      "scheduled": "Scheduled",
+      "approved": "Approved",
+      "published": "Published"
+    }
+  },
+  "create": {
+    "title": "Version Management",
+    "description": "Manage your post ideas",
+    "versionManagement": "Version Management",
+    "columns": {
+      "todo": "To Do",
+      "inProgress": "In Progress",
+      "done": "Done"
+    },
+    "newIdea": "New Idea",
+    "createIdea": "Create Idea",
+    "editIdea": "Edit Idea"
+  },
+  "manage": {
+    "title": "Manage",
+    "description": "Manage your published posts",
+    "tabs": {
+      "posts": "Posts",
+      "dm": "DM"
+    },
+    "editPost": "Edit Post",
+    "manageComments": "Manage Comments"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "description": "Analyze your social media performance and get insights",
+    "platformOverview": "Platform Overview",
+    "crossPlatformTrends": "Cross-Platform Trends",
+    "postLevelComparison": "Post-Level Comparison",
+    "period": {
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    }
+  },
+  "post": {
+    "title": "Title",
+    "content": "Content",
+    "image": "Image",
+    "uploadImage": "Upload Image",
+    "dragAndDrop": "Drag and drop or select file",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "saveIdea": "Save Idea"
+  },
+  "stats": {
+    "likes": "Likes",
+    "comments": "Comments",
+    "shares": "Shares",
+    "views": "Views",
+    "impressions": "Impressions",
+    "reactions": "Reactions",
+    "engagement": "Engagement"
+  },
+  "common": {
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "error": "An error occurred"
+  },
+  "dashboard": {
+    "topNavigation": {
+      "create": "Create",
+      "deploy": "Deploy",
+      "manage": "Manage",
+      "analytics": "Analytics"
+    },
+    "platformSidebar": {
+      "title": "Platforms",
+      "all": "All",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "threads": "Threads",
+      "linkedin": "LinkedIn",
+      "tiktok": "TikTok",
+      "youtube": "YouTube"
+    },
+    "createPage": {
+      "title": "Version Management",
+      "description": "Turn your ideas into posts"
+    },
+    "kanbanBoard": {
+      "columns": {
+        "unassigned": "To Plan",
+        "inProgress": "In Progress",
+        "toDo": "Completed"
+      },
+      "newIdea": "New Idea",
+      "addIdea": "Add Idea"
+    },
+    "createSidebar": {
+      "title": "Menu",
+      "versionManagement": "Version Management"
+    },
+    "createIdeaDialog": {
+      "createTitle": "Create New Post",
+      "editTitle": "Edit Post",
+      "labelTitle": "Title",
+      "placeholderTitle": "Enter your idea title...",
+      "labelContent": "Content",
+      "placeholderContent": "Write your idea content...",
+      "labelImage": "Upload Image",
+      "uploadText1": "Drag & drop or",
+      "uploadText2": "select a file",
+      "uploadHint": "Choose an image file",
+      "createButton": "Create Post",
+      "editButton": "Save Changes"
+    },
+    "deployPostsView": {
+      "subtitle": "Manage posts by platform",
+      "searchPlaceholder": "Search posts...",
+      "filter": "Filter",
+      "createPost": "Create Post",
+      "tabs": {
+        "all": "All",
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "approved": "Approved",
+        "deployed": "Published"
+      },
+      "platforms": {
+        "all": "All",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      }
+    },
+    "postCard": {
+      "edit": "Edit Post",
+      "status": {
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "approved": "Approved",
+        "deployed": "Published"
+      }
+    },
+    "postGrid": {
+      "tabs": {
+        "all": "All",
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "approved": "Approved",
+        "deployed": "Published"
+      }
+    },
+    "managePage": {
+      "subtitle": "Manage published posts and engagement",
+      "platforms": {
+        "all": "All",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "threads": "Threads",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      }
+    },
+    "manageTabs": {
+      "tabs": {
+        "posts": "Posts",
+        "dm": "DM"
+      }
+    },
+    "postManagement": {
+      "searchPlaceholder": "Search posts...",
+      "sort": {
+        "placeholder": "Sort",
+        "recent": "Recent",
+        "engagement": "Engagement",
+        "likes": "Likes",
+        "comments": "Comments"
+      },
+      "buttons": {
+        "edit": "Edit Post",
+        "comments": "Manage Comments"
+      },
+      "comments": {
+        "title": "Comment Management",
+        "description": "View and reply to comments on this post",
+        "total": "{count} Comments",
+        "needsAttention": "Needs Attention {count}",
+        "replied": "Replied {count}",
+        "attention": "Needs Attention",
+        "done": "Replied",
+        "reply": "Reply",
+        "replyPlaceholder": "Write a reply...",
+        "replySend": "Send Reply",
+        "cancel": "Cancel",
+        "report": "Report"
+      }
+    },
+    "dmManagement": {
+      "searchPlaceholder": "Search conversations...",
+      "badges": {
+        "unread": "Unread {count}",
+        "starred": "Starred {count}"
+      },
+      "inputPlaceholder": "Type a message...",
+      "emptyState": "Select a conversation",
+      "timestamp": {
+        "justNow": "Just now"
+      }
+    },
+    "analyticsPage": {
+      "platform": {
+        "all": "All"
+      },
+      "subtitle": "Analyze social media performance and gain insights"
+    },
+    "overviewAnalytics": {
+      "title": "Platform Overview",
+      "period": {
+        "placeholder": "Select Period",
+        "week": "Week",
+        "month": "Month",
+        "quarter": "Quarter",
+        "year": "Year"
+      },
+      "platform": {
+        "instagram": { "subtitle": "6,333 Likes" },
+        "youtube": { "subtitle": "12,000 Views" },
+        "tiktok": { "subtitle": "15,000 Views" },
+        "linkedin": { "subtitle": "20,000 Impressions" }
+      },
+      "metrics": {
+        "likes": "Likes",
+        "comments": "Comments",
+        "views": "Views",
+        "shares": "Shares",
+        "impressions": "Impressions",
+        "reactions": "Reactions"
+      },
+      "charts": {
+        "trends": "Cross-Platform Trends",
+        "comparison": "Post-Level Comparison"
+      },
+      "table": {
+        "thumbnail": "Thumbnail",
+        "title": "Title",
+        "date": "Date",
+        "views": "Views",
+        "likes": "Likes",
+        "comments": "Comments",
+        "engagement": "Engagement"
+      }
+    },
+    "platformAnalytics": {
+      "noData": "No data available for this platform.",
+      "period": {
+        "placeholder": "Select period",
+        "7days": "Last 7 days",
+        "30days": "Last 30 days",
+        "90days": "Last 90 days"
+      },
+      "metrics": {
+        "followers": "Followers",
+        "posts": "Posts",
+        "avgEngagement": "Avg Engagement",
+        "reach": "Reach",
+        "engagement": "Engagement",
+        "engagementRate": "Engagement Rate"
+      },
+      "compare": {
+        "lastWeek": "vs last week",
+        "thisMonth": "This month"
+      },
+      "charts": {
+        "followersGrowth": "Followers Growth",
+        "engagementTrend": "Engagement Trend",
+        "topPosts": "Top Performing Posts"
+      }
+    }
   }
 }
