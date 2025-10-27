@@ -48,9 +48,15 @@ export class AuthService {
     localStorage.removeItem(this.USER_KEY);
   }
 
-  static autoLogout() {
-    this.clearSession();
-    return { success: true, message: "인증이 만료되어 자동 로그아웃되었습니다." };
+  static async autoLogout() {
+    try {
+      await api.delete(AUTH_ENDPOINTS.COOKIE_DELETE);
+    } catch (err) {
+      console.warn("자동 로그아웃 중 쿠키 삭제 실패:", err);
+    } finally {
+      this.clearSession();
+      return { success: true, message: "인증이 만료되어 자동 로그아웃되었습니다." };
+    }
   }
 
   static async logout(): Promise<{ success: boolean; message?: string }> {
