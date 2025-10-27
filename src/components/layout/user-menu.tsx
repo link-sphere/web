@@ -35,6 +35,7 @@ export function UserMenu() {
         title: t("logoutTitle"),
         description: t("logoutDesc"),
       });
+      router.push("/");
       router.refresh();
     } catch (error) {
       toast({
