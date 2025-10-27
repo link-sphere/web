@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Eye, EyeOff } from "lucide-react";
-import { AuthService } from "@/lib/auth";
+import { useChangePassword } from "@/features/auth/hooks/useChangePassword";
 
 export function ChangePasswordForm() {
   const router = useRouter();
@@ -22,56 +22,47 @@ export function ChangePasswordForm() {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const { mutate, isPending, isSuccess } = useChangePassword();
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError("");
-    setSuccess("");
 
     if (newPassword !== confirmPassword) {
-      setError(t("mismatch", { default: "비밀번호 불일치" }));
-      setIsLoading(false);
+      setError(t("mismatch"));
       return;
     }
-
     if (newPassword.length < 6) {
-      setError(t("tooShort", { default: "6자리 이상 필요" }));
-      setIsLoading(false);
+      setError(t("tooShort"));
       return;
     }
 
-    try {
-      const result = await AuthService.changePassword(oldPassword, newPassword);
-
-      if (result.success) {
-        setSuccess(t("success"));
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-
-        setTimeout(() => {
-          router.replace(`/${locale}`);
-          router.refresh();
-        }, 1000);
-      } else {
-        setError(result.message || "Error");
+    mutate(
+      { oldPassword, newPassword },
+      {
+        onSuccess: (res) => {
+          if (res.success) {
+            setOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+            setTimeout(() => {
+              router.replace(`/${locale}`);
+              router.refresh();
+            }, 1000);
+          } else setError(res.message);
+        },
+        onError: () => setError(t("networkError")),
       }
-    } catch {
-      setError(t("networkError"));
-    } finally {
-      setIsLoading(false);
-    }
+    );
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-semibold">{t("title")}</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
           <CardDescription>{t("desc")}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -80,55 +71,47 @@ export function ChangePasswordForm() {
               {
                 id: "oldPassword",
                 label: t("old"),
-                value: oldPassword,
-                setter: setOldPassword,
+                val: oldPassword,
+                set: setOldPassword,
                 show: showOldPassword,
-                setShow: setShowOldPassword,
-                placeholder: t("placeholderOld"),
+                toggle: setShowOldPassword,
               },
               {
                 id: "newPassword",
                 label: t("new"),
-                value: newPassword,
-                setter: setNewPassword,
+                val: newPassword,
+                set: setNewPassword,
                 show: showNewPassword,
-                setShow: setShowNewPassword,
-                placeholder: t("placeholderNew"),
+                toggle: setShowNewPassword,
               },
               {
                 id: "confirmPassword",
                 label: t("confirm"),
-                value: confirmPassword,
-                setter: setConfirmPassword,
+                val: confirmPassword,
+                set: setConfirmPassword,
                 show: showConfirmPassword,
-                setShow: setShowConfirmPassword,
-                placeholder: t("placeholderConfirm"),
+                toggle: setShowConfirmPassword,
               },
-            ].map((field) => (
-              <div className="space-y-2" key={field.id}>
-                <Label htmlFor={field.id}>{field.label}</Label>
+            ].map((f) => (
+              <div key={f.id} className="space-y-2">
+                <Label htmlFor={f.id}>{f.label}</Label>
                 <div className="relative">
                   <Input
-                    id={field.id}
-                    type={field.show ? "text" : "password"}
-                    placeholder={field.placeholder}
-                    value={field.value}
-                    onChange={(e) => field.setter(e.target.value)}
+                    id={f.id}
+                    type={f.show ? "text" : "password"}
+                    value={f.val}
+                    onChange={(e) => f.set(e.target.value)}
                     required
-                    className="w-full pr-10"
+                    className="pr-10"
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => field.setShow(!field.show)}
+                    className="absolute right-0 top-0 h-full px-3"
+                    onClick={() => f.toggle(!f.show)}
                   >
-                    {field.show ? (
-                      <EyeOff className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-muted-foreground" />
-                    )}
+                    {f.show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
                 </div>
               </div>
@@ -139,15 +122,14 @@ export function ChangePasswordForm() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            {success && (
+            {isSuccess && (
               <Alert className="border-green-200 bg-green-50 text-green-800">
-                <AlertDescription>{success}</AlertDescription>
+                <AlertDescription>{t("success")}</AlertDescription>
               </Alert>
             )}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {t("button")}
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} {t("button")}
             </Button>
           </form>
         </CardContent>

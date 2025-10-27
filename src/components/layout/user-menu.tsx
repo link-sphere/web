@@ -1,9 +1,9 @@
 // src/components/layout/user-menu.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/use-auth";
+import { AuthService } from "@/features/auth/api/service";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,15 +18,19 @@ import { User, LogOut, KeyRound } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 export function UserMenu() {
-  const { user, logout } = useAuth();
+  const [user, setUser] = useState(AuthService.getUser());
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const t = useTranslations("auth.userMenu");
 
+  useEffect(() => {
+    setUser(AuthService.getUser());
+  }, []);
+
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      await logout();
+      await AuthService.logout();
       toast({
         title: t("logoutTitle"),
         description: t("logoutDesc"),
