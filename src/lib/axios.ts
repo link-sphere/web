@@ -1,12 +1,15 @@
-import axios from "axios";
-import { AuthService } from "./auth";
+import axios, { AxiosInstance } from "axios";
+import { AuthService } from "../features/auth/api/service";
 
-const api = axios.create({
+const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE,
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// 요청 인터셉터 — accessToken 자동 포함
+// 요청 인터셉터 — 모든 요청에 accessToken 자동 포함
 api.interceptors.request.use(
   (config) => {
     const token = AuthService.getAccessToken();
@@ -35,7 +38,6 @@ api.interceptors.response.use(
     // accessToken 만료 → 401 처리
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        // 다른 요청이 이미 재발급 중이면 기다렸다가 재시도
         return new Promise((resolve) => {
           refreshSubscribers.push((newToken) => {
             if (newToken) {
@@ -48,7 +50,6 @@ api.interceptors.response.use(
         });
       }
 
-      // 첫 번째 재발급 요청
       originalRequest._retry = true;
       isRefreshing = true;
 
@@ -64,7 +65,6 @@ api.interceptors.response.use(
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
           return api(originalRequest);
         } else {
-          // 재발급 실패 → 자동 로그아웃
           AuthService.autoLogout();
           onRefreshed(null);
           isRefreshing = false;
