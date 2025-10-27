@@ -1,8 +1,9 @@
 // src/components/molecules/password-confirmation-field.tsx
 "use client";
 
-import { PasswordField } from "@/components/auth/atoms/password-field";
+
 import { useTranslations } from "next-intl";
+import { PasswordField } from "../atoms/password-field";
 
 interface PasswordConfirmationFieldProps {
   password: string;
