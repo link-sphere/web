@@ -1,17 +1,25 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useAuth } from "@/hooks/use-auth";
+import { AuthService } from "@/features/auth/api/service";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Shield, Users, Zap } from "lucide-react";
 import Link from "next/link";
 import { UserMenu } from "@/components/layout/user-menu";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const t = useTranslations("home");
+
+  useEffect(() => {
+    const user = AuthService.getUser();
+    setIsAuthenticated(!!user);
+    setIsLoading(false);
+  }, []);
 
   if (isLoading) {
     return (
