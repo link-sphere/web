@@ -35,12 +35,6 @@ export function ForgotPasswordForm() {
     setSuccess("");
 
     try {
-      const avail = await AuthService.checkEmailAvailability(email);
-      if (!avail.available) {
-        setError(t("errorNoAccount"));
-        return;
-      }
-
       const codeResult = await AuthService.requestVerificationCode(email);
       if (codeResult.success) {
         setStep("verification");
